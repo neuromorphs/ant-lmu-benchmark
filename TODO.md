@@ -10,5 +10,6 @@ TODO
    - Terry add accuracy and confusion matrix
    - Terry add memory and compute measures
    - Terry add callout to tensorflow for doing backprop
+   - Terry think about a kWTA output
 - Start exploring parameters
    - Nikhil explore NNI integration
