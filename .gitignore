@@ -127,3 +127,16 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+*.bin
+*.zip
+*.npy
+*.gz
+lmu_benchmark/.DS_Store
+lmu_benchmark/data/.DS_Store
+lmu_benchmark/data/nmnist/.DS_Store
+lmu_benchmark/data/nmnist/Read_Ndataset.m
+lmu_benchmark/data/nmnist/stabilize.m
+lmu_benchmark/data/nmnist/Test/.DS_Store
+lmu_benchmark/data/nmnist/Train/.DS_Store
+lmu_benchmark/data/nmnist/ReadMe(MNIST).txt
+lmu_benchmark/data/nmnist/LICENSE.txt
