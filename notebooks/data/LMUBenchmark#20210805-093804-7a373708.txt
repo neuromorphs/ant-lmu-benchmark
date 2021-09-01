@@ -1,0 +1,12 @@
+seed = 1
+dt = 0.001
+q = 6
+theta = 0.5
+n_neurons = 200
+neuron_type = 'nengo.LIF()'
+task = 'Sinewaves([1,2])'
+output_synapse = 0.01
+p_training = 0.8
+
+accuracy = 0.956875
+confusion = [[4000, 0], [345, 3655]]

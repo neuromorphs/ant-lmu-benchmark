@@ -1,8 +1,10 @@
 from lmu_benchmark import ldn
+from lmu_benchmark import stmnist
 import nengo
 import numpy as np
 import pytry
 import sklearn.metrics
+
 
 class Sinewaves(object):
     def __init__(self, freqs, stdev=0.1, n_samples=10, T=2.0):
@@ -27,6 +29,7 @@ class LMUBenchmark(pytry.PlotTrial):
         self.param('number of Legendre bases', q=6)
         self.param('memory window (in seconds)', theta=0.5)
         self.param('number of neurons', n_neurons=200)
+        self.param('dimension of input signal', size_in=100)
         self.param('neuron type', neuron_type='nengo.LIF()')
         self.param('task to perform', task='Sinewaves([1,2])')
         self.param('output synapse time constant', output_synapse=0.01)
@@ -35,7 +38,7 @@ class LMUBenchmark(pytry.PlotTrial):
     def evaluate(self, p, plt):
 
         rng = np.random.RandomState(seed=p.seed)
-        ldn_process = ldn.LDN(q=p.q, theta=p.theta)
+        ldn_process = ldn.LDN(q=p.q, theta=p.theta, size_in=p.size_in)
         dataset = eval(p.task, globals(), locals()).generate(dt=p.dt, rng=rng)
 
         training_inputs = []
@@ -46,6 +49,7 @@ class LMUBenchmark(pytry.PlotTrial):
             order = np.arange(len(inputs))
             rng.shuffle(order)
             N = int(len(order)*p.p_training)
+            print(inputs)
             training_inputs.extend(inputs[order[:N]])
             testing_inputs.extend(inputs[order[N:]])
             for input in inputs[order[:N]]:
@@ -87,13 +91,3 @@ class LMUBenchmark(pytry.PlotTrial):
         accuracy = np.sum(np.diag(C))/np.sum(C)
 
         return dict(accuracy=accuracy, confusion=C.tolist())
-
-
-
-
-        
-
-
-
-
-
