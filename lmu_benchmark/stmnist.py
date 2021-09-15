@@ -9,13 +9,12 @@ class STMNIST(object):
         self.samples_per_digit = samples_per_digit
 
     def generate(self,rng,dt=0.001):
-        dataset=[]
+        dataset = []
         i = 0
         for digit in self.digits:
-            samples=[]
-            for sample in np.arange(self.samples_per_digit):
-                spikes = self.load_digit(digit,sample,dt)
-                samples.append(spikes)
+            samples = []
+            for sample in range(self.samples_per_digit):
+                samples.append(self.load_digit(digit,sample,dt))
             dataset.append((samples,np.eye(len(self.digits))[i]))
             i = i + 1
         return dataset

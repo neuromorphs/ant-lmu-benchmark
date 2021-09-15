@@ -2,14 +2,15 @@ from benchmark import Sinewaves
 import numpy as np
 import matplotlib.pyplot as plt
 
-s1 = Sinewaves([1,2])
+s1 = Sinewaves([1,2,3])
 rng = np.random.RandomState()
 s1_data = s1.generate(0.001,rng)
 ss = np.array(s1_data,dtype=object)
 print(ss.shape)
-print(ss)
-ss1 = ss[0,0]
-
+#print(ss)
+ss1 = np.array(ss[0,0])
+print(ss1.shape)
+print(ss1)
 # plt.subplot(2,1,1)
 # for i in range(10):
 #         plt.plot(ss1[i,:])

@@ -6,8 +6,9 @@ import lmu_benchmark
 import seaborn
 
 trial = lmu_benchmark.LMUBenchmark()
-trial.run(task="Sinewaves([1,2])")
+trial.run(task="Sinewaves([1,2])",size_in=1)
 
+'''
 upper_freqs = [1.1, 1.2, 1.3, 1.4]
 for seed in range(5):
     for upper in upper_freqs:
@@ -21,3 +22,4 @@ df
 
 plt.figure(figsize=(12,4))
 seaborn.barplot(x='task', y='accuracy', data=df, hue='q')
+'''

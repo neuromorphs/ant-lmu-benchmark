@@ -5,7 +5,6 @@ import numpy as np
 import pytry
 import sklearn.metrics
 
-
 class Sinewaves(object):
     def __init__(self, freqs, stdev=0.1, n_samples=10, T=2.0):
         self.freqs = freqs
@@ -46,23 +45,28 @@ class LMUBenchmark(pytry.PlotTrial):
         testing_inputs = []
         testing_outputs = []
         for inputs, category in dataset:
-            order = np.arange(len(inputs))
-            rng.shuffle(order)
+            order = np.arange(len(inputs),dtype=int)
+            # rng.shuffle(order)
             N = int(len(order)*p.p_training)
-            print(inputs)
-            training_inputs.extend(inputs[order[:N]])
-            testing_inputs.extend(inputs[order[N:]])
-            for input in inputs[order[:N]]:
+            N1 = len(order)-N
+            for i in range(N):
+                training_inputs.extend(inputs[i])
+            for i in range(N1):
+                testing_inputs.extend(inputs[N+i])
+            for input in inputs[0:N]:
                 training_outputs.append(np.tile(category[None,:], (len(input),1)))
-            for input in inputs[order[N:]]:
+            for input in inputs[N:len(order)]:
                 testing_outputs.append(np.tile(category[None,:], (len(input),1)))
+
         training_inputs = np.hstack(training_inputs)
         testing_inputs = np.hstack(testing_inputs)
         training_outputs = np.vstack(training_outputs)
         testing_outputs = np.vstack(testing_outputs)
 
-
+        # print(testing_inputs.shape)
+        
         inputs = ldn_process.apply(training_inputs[:,None])
+        # inputs = ldn_process.apply(training_inputs[:])
 
         model = nengo.Network(seed=p.seed)
         with model:
