@@ -17,10 +17,10 @@ class LDN(nengo.Process):
         for i in range(q):
             B[i] = (-1.)**i * (2*i+1)
             for j in range(q):
-                A[i,j] = (2*i+1)*(-1 if i<j else (-1.)**(i-j+1)) 
+                A[i,j] = (2*i+1)*(-1 if i<j else (-1.)**(i-j+1))
         self.A = A / theta
-        self.B = B / theta        
-        
+        self.B = B / theta
+
         super().__init__(default_size_in=size_in, default_size_out=q*size_in)
 
     def make_step(self, shape_in, shape_out, dt, rng, state=None):

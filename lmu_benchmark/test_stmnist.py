@@ -22,4 +22,4 @@ import lmu_benchmark
 
 trial = lmu_benchmark.LMUBenchmark()
 trial.run(size_in=100,
-task='stmnist.STMNIST([1,2],5)')
+task='stmnist.STMNIST([1,2],10)')

@@ -39,7 +39,7 @@ class LMUBenchmark(pytry.PlotTrial):
         rng = np.random.RandomState(seed=p.seed)
         ldn_process = ldn.LDN(q=p.q, theta=p.theta, size_in=p.size_in)
         dataset = eval(p.task, globals(), locals()).generate(dt=p.dt, rng=rng)
-
+        print(p.size_in)
         training_inputs = []
         training_outputs = []
         testing_inputs = []
@@ -49,24 +49,38 @@ class LMUBenchmark(pytry.PlotTrial):
             # rng.shuffle(order)
             N = int(len(order)*p.p_training)
             N1 = len(order)-N
+            print("N=",N)
+            print("N1=",N1)
             for i in range(N):
-                training_inputs.extend(inputs[i])
+                training_inputs.append(inputs[i])
             for i in range(N1):
-                testing_inputs.extend(inputs[N+i])
+                testing_inputs.append(inputs[N+i])
             for input in inputs[0:N]:
-                training_outputs.append(np.tile(category[None,:], (len(input),1)))
+                # print(np.array(input).shape[1])
+                len_inp = np.array(input).T.shape[0]
+                training_outputs.append(np.tile(category[None,:], (len_inp,1)))
             for input in inputs[N:len(order)]:
-                testing_outputs.append(np.tile(category[None,:], (len(input),1)))
+                len_inp = np.array(input).T.shape[0]
+                testing_outputs.append(np.tile(category[None,:], (len_inp,1)))
 
-        training_inputs = np.hstack(training_inputs)
-        testing_inputs = np.hstack(testing_inputs)
+        training_inputs = np.hstack(training_inputs).T
+        testing_inputs = np.hstack(testing_inputs).T
         training_outputs = np.vstack(training_outputs)
         testing_outputs = np.vstack(testing_outputs)
+        # training_inputs = np.array(training_inputs)
+        # testing_inputs = np.array(testing_inputs)
+        # training_outputs = np.array(training_outputs)
+        # testing_outputs = np.array(testing_outputs)
+        print(training_inputs.shape)
+        print(testing_inputs.shape)
+        print(training_outputs.shape)
+        print(testing_outputs.shape)
 
-        # print(testing_inputs.shape)
-        
-        inputs = ldn_process.apply(training_inputs[:,None])
-        # inputs = ldn_process.apply(training_inputs[:])
+        # print(training_inputs[:,None].shape)
+        if p.size_in == 1:
+            inputs = ldn_process.apply(training_inputs[:,None])
+        else:
+            inputs = ldn_process.apply(training_inputs[:])
 
         model = nengo.Network(seed=p.seed)
         with model:
