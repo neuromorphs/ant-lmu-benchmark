@@ -3,6 +3,7 @@ import numpy as np
 import scipy.linalg
 from scipy.special import legendre
 
+
 class LDN(nengo.Process):
     def __init__(self, theta, q, size_in=1):
         self.q = q              # number of internal state dimensions per input
@@ -10,14 +11,15 @@ class LDN(nengo.Process):
         self.size_in = size_in  # number of inputs
 
         # Do Aaron's math to generate the matrices A and B so that
-        #  dx/dt = Ax + Bu will convert u into a legendre representation over a window theta
+        #  dx/dt = Ax + Bu will convert u into a legendre representation
+        #  over a window theta
         #  https://github.com/arvoelke/nengolib/blob/master/nengolib/synapses/analog.py#L536
         A = np.zeros((q, q))
         B = np.zeros((q, 1))
         for i in range(q):
             B[i] = (-1.)**i * (2*i+1)
             for j in range(q):
-                A[i,j] = (2*i+1)*(-1 if i<j else (-1.)**(i-j+1))
+                A[i, j] = (2*i + 1)*(-1 if i < j else (-1.)**(i - j + 1))
         self.A = A / theta
         self.B = B / theta
 
