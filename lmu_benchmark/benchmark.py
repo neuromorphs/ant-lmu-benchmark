@@ -42,7 +42,7 @@ class LMUBenchmark(pytry.PlotTrial):
         rng = np.random.RandomState(seed=p.seed)
         ldn_process = ldn.LDN(q=p.q, theta=p.theta, size_in=p.size_in)
         dataset = eval(p.task, globals(), locals()).generate(dt=p.dt, rng=rng)
-        print(p.size_in)
+        # print(p.size_in)
         training_inputs = []
         training_outputs = []
         testing_inputs = []
@@ -67,11 +67,6 @@ class LMUBenchmark(pytry.PlotTrial):
         testing_inputs = np.hstack(testing_inputs).T
         training_outputs = np.vstack(training_outputs)
         testing_outputs = np.vstack(testing_outputs)
-
-        print(training_inputs.shape)
-        print(testing_inputs.shape)
-        print(training_outputs.shape)
-        print(testing_outputs.shape)
 
         if p.size_in == 1:
             inputs = ldn_process.apply(training_inputs[:, None])

@@ -11,15 +11,11 @@ import lmu_benchmark
 # training_data[sample][spiketrain_i] i=0,1,..,99
 # stm = stmnist.STMNIST([1,2,3],5)
 # training_data=stm.generate(0)
-#
-# td = np.array(training_data,dtype=object)
-# print(td.shape)
-# td1=td[0,0]
-# print(np.array(td1[3]).shape)
-#
-# for inputs, category in training_data:
-#     print(inputs[1])
 
-trial = lmu_benchmark.LMUBenchmark()
-trial.run(size_in=100,
-task='stmnist.STMNIST([1,2],5)')
+# trial1 = lmu_benchmark.LMUBenchmark()
+# trial1.run(size_in=100,
+# task='stmnist.STMNIST([1,2,3,4],500)')
+
+trial2 = lmu_benchmark.LMUBenchmark()
+trial2.run(size_in=100,
+task='stmnist.STMNIST([1,2],500)')
