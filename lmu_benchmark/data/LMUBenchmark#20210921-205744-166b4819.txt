@@ -1,0 +1,13 @@
+seed = 1
+dt = 0.001
+q = 6
+theta = 0.5
+n_neurons = 200
+size_in = 100
+neuron_type = 'nengo.LIF()'
+task = 'stmnist.STMNIST([1,2],500)'
+output_synapse = 0.01
+p_training = 0.8
+
+accuracy = 0.5391391201381168
+confusion = [[1, 101971], [0, 119290]]
